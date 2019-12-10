@@ -1,0 +1,19 @@
+---
+- name: Install Tensorflow
+  hosts: localhost
+  become: true
+  tasks:
+    - name: update python3
+      dnf:
+       name: python3
+       state: present
+
+    - name: Install Tensorflow using pip3
+      pip:
+        name: "tensorflow"
+        state: latest
+        virtualenv: "{{ ansible_env.HOME }}/tensorflow"
+        virtualenv_python: python3
+      with_items:
+        - tensorflow
+        - pandas
